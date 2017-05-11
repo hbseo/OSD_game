@@ -52,8 +52,8 @@ while not done:
     # Get the current mouse position. This returns the position
     # as a list of two numbers.
     player_position = pygame.mouse.get_pos()
-    x = player_position[0]
-    y = player_position[1]
+    x = player_position[0]-50
+    y = player_position[1]-50
  
     # Copy image to screen:
     screen.blit(player_image, [x, y])
