@@ -33,8 +33,8 @@ click_sound = pygame.mixer.Sound("laser5.ogg")
 background_position = [0, 0]
  
 # Load and set up graphics.
-background_image = pygame.image.load("back.png").convert()
-player_image = pygame.image.load("player.png").convert()
+background_image = pygame.image.load("background.png").convert()
+player_image = pygame.image.load("tiny_ship_0.png").convert()
 player_image.set_colorkey(BLACK)
  
 done = False
