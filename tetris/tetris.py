@@ -48,6 +48,7 @@ class Tetris:
 
     def run(self):
         pygame.init()
+        pygame.display.set_caption('Tetris')
         pygame.time.set_timer(Tetris.DROP_EVENT, 500)
 
         while True:
