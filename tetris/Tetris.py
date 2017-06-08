@@ -32,6 +32,8 @@ class Tetris:
             self.board.move_piece(dx=1, dy=0)
         elif event_key == K_UP:
             self.board.rotate_piece()
+        elif event_key == K_SPACE:
+            self.board.full_drop_piece()
         elif event_key == K_ESCAPE:
             self.pause()
 
@@ -48,6 +50,8 @@ class Tetris:
 
     def run(self):
         pygame.init()
+        icon = pygame.image.load('icon.png')
+        pygame.display.set_icon(icon)
         pygame.display.set_caption('Tetris')
         pygame.time.set_timer(Tetris.DROP_EVENT, 500)
 
