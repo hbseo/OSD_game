@@ -137,7 +137,7 @@ class Board:
                         x += dx
                         x_pix, y_pix = self.pos_to_pixel(x, y)
                         # 블록
-                        pygame.draw.rect(self.screen, (color),
+                        pygame.draw.rect(self.screen, self.piece.T_COLOR[block-1],
                                         (x_pix, y_pix, self.block_size, self.block_size))
                         # 블록 테두리
                         pygame.draw.rect(self.screen, BLACK,
@@ -148,7 +148,7 @@ class Board:
         for x in range(self.width):
             for y in range(self.height):
                 x_pix, y_pix = self.pos_to_pixel(x, y)
-                pygame.draw.rect(self.screen, (20,20,20),
+                pygame.draw.rect(self.screen, (26,26,26),
                  (x_pix, y_pix, self.block_size, self.block_size))
                 pygame.draw.rect(self.screen, BLACK,
                  (x_pix, y_pix, self.block_size, self.block_size),1)
