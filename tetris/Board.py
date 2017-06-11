@@ -148,9 +148,10 @@ class Board:
         for x in range(self.width):
             for y in range(self.height):
                 x_pix, y_pix = self.pos_to_pixel(x, y)
-                if (x_pix + y_pix) % 2 == 0:
-                    pygame.draw.rect(self.screen, (30,30,30),
-                     (x_pix, y_pix, self.block_size, self.block_size))
+                pygame.draw.rect(self.screen, (20,20,20),
+                 (x_pix, y_pix, self.block_size, self.block_size))
+                pygame.draw.rect(self.screen, BLACK,
+                 (x_pix, y_pix, self.block_size, self.block_size),1)
         self.draw_blocks(self.piece, dx=self.piece_x, dy=self.piece_y)
         self.draw_blocks(self.board)
 
