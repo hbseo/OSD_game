@@ -1,4 +1,5 @@
-import pygame
+import pygame, sys
+from pygame.locals import *
 from Piece import *
 
 #               R    G    B
@@ -135,13 +136,42 @@ class Board:
                     if block:
                         x += dx
                         x_pix, y_pix = self.pos_to_pixel(x, y)
-                        # draw block
+                        # 블록
                         pygame.draw.rect(self.screen, color,
                                         (x_pix, y_pix, self.block_size, self.block_size))
-                        # draw border
-                        pygame.draw.rect(self.screen, (0,0,0),
+                        # 블록 테두리
+                        pygame.draw.rect(self.screen, BLUE,
                                         (x_pix, y_pix, self.block_size, self.block_size), 1)
 
     def draw(self):
+        # for x in range(self.height):
+        #     for y in range(self.width):
+        #         if (x+y) % 2 == 0:
+        #             # if self.board[x][y] == 0:
+        #             pygame.draw.rect(self.screen, GRAY, (152+x, 152+y,
+        #                                 self.block_size, self.block_size))
         self.draw_blocks(self.piece, dx=self.piece_x, dy=self.piece_y)
         self.draw_blocks(self.board)
+
+    def pause(self):
+        fontObj = pygame.font.Font('Roboto-Bold.ttf', 32)
+        textSurfaceObj = fontObj.render('Paused', True, GREEN)
+        textRectObj = textSurfaceObj.get_rect()
+        textRectObj.center = (125, 255)
+        self.screen.blit(textSurfaceObj, textRectObj)
+        pygame.display.update()
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == KEYUP and event.key == K_p:
+                    running = False
+
+    def checkForKeyPress(self):
+        for event in pygame.event.get([KEYDOWN, KEYUP]):
+            if event.type == KEYDOWN:
+                continue
+            return event.key
+        return None

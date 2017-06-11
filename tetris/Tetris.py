@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame, sys, time
 from pygame.locals import *
 from Board import *
 
@@ -24,29 +24,16 @@ class Tetris:
         self.board = Board(self.screen)
 
     def handle_key(self, event_key):
-        if event_key == K_DOWN:
+        if event_key == K_DOWN or event_key == K_s:
             self.board.drop_piece()
-        elif event_key == K_LEFT:
+        elif event_key == K_LEFT or event_key == K_a:
             self.board.move_piece(dx=-1, dy=0)
-        elif event_key == K_RIGHT:
+        elif event_key == K_RIGHT or event_key == K_d:
             self.board.move_piece(dx=1, dy=0)
-        elif event_key == K_UP:
+        elif event_key == K_UP or event_key == K_w:
             self.board.rotate_piece()
         elif event_key == K_SPACE:
             self.board.full_drop_piece()
-        elif event_key == K_ESCAPE:
-            self.pause()
-
-    def pause(self):
-        running = True
-        while running:
-            for event in pygame.event.get():
-                if event.type == QUIT:
-                    pygame.quit()
-                    sys.exit()
-                elif event.type == KEYDOWN and event.key == K_ESCAPE:
-                    running = False
-
 
     def run(self):
         pygame.init()
@@ -60,16 +47,18 @@ class Tetris:
                 print("Game over")
                 pygame.quit()
                 sys.exit()
-            self.screen.fill(BLACK)
             for event in pygame.event.get():
                 if event.type == QUIT:
                     pygame.quit()
                     sys.exit()
+                elif event.type == KEYUP and event.key == K_p:
+                    self.screen.fill(BLACK)
+                    self.board.pause()
                 elif event.type == KEYDOWN:
                     self.handle_key(event.key)
                 elif event.type == Tetris.DROP_EVENT:
                     self.board.drop_piece()
-
+            self.screen.fill(BLACK)
             self.board.draw()
             pygame.display.update()
             self.clock.tick(60)
