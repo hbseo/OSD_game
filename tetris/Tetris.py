@@ -58,7 +58,7 @@ class Tetris:
                     self.handle_key(event.key)
                 elif event.type == Tetris.DROP_EVENT:
                     self.board.drop_piece()
-            self.screen.fill(BLACK)
+            # self.screen.fill(BLACK)
             self.board.draw()
             pygame.display.update()
             self.clock.tick(60)
