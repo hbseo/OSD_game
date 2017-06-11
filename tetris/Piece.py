@@ -44,7 +44,7 @@ class Piece:
 
     PIECES = {'O': O, 'I': I, 'L': L, 'J': J, 'Z': Z, 'S':S, 'T':T}
 
-    T_COLOR = [yellow ,cyan, orange, blue, red, green, pink]
+    T_COLOR = [yellow ,cyan, orange, blue, red, green, pink, (55, 55, 55)]
 
     def __init__(self, piece_name=None):
         if piece_name:

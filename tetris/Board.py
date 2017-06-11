@@ -136,10 +136,19 @@ class Board:
                     if block:
                         x += dx
                         x_pix, y_pix = self.pos_to_pixel(x, y)
-                        # 블록
+                        # tx, ty = x, y
+                        # while self.can_drop_piece():
+                        #     ty += 1
+                        #
+                        # # shadow
+                        # for i in range(4):
+                        #     for j in range(5):
+                        #         if
+                        #
+                        # block
                         pygame.draw.rect(self.screen, self.piece.T_COLOR[block-1],
                                         (x_pix, y_pix, self.block_size, self.block_size))
-                        # 블록 테두리
+                        # block border
                         pygame.draw.rect(self.screen, BLACK,
                                         (x_pix, y_pix, self.block_size, self.block_size), 1)
 
