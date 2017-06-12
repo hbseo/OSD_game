@@ -24,12 +24,14 @@ class Board:
         self.width = 10
         self.height = 20
         self.block_size = 25
-        self.board = []
         self.init_board()
         self.generate_piece()
 
     def init_board(self):
         self.board = []
+        self.score = 0
+        self.level = 1
+        self.goal = 5
         for _ in range(self.height):
             self.board.append([0]*self.width)
 
@@ -43,6 +45,7 @@ class Board:
                 if block:
                     self.board[y+self.piece_y][x+self.piece_x] = block
         self.generate_piece()
+        self.score += 10
 
     def block_collide_with_board(self, x, y):
         if x < 0:
@@ -127,6 +130,11 @@ class Board:
         remove = [y for y, row in enumerate(self.board) if all(row)]
         for y in remove:
             self.delete_line(y)
+            self.score += 50
+            self.goal -= 1
+            if self.goal == 0:
+                self.level += 1
+                self.goal = 5 * self.level
 
     def game_over(self):
         return sum(self.board[0]) > 0 or sum(self.board[1]) > 0
@@ -162,7 +170,21 @@ class Board:
                  (x_pix, y_pix, self.block_size, self.block_size),1)
         self.draw_blocks(self.piece, dx=self.piece_x, dy=self.piece_y)
         self.draw_blocks(self.board)
-        pygame.draw.rect(self.screen, WHITE, Rect(250, 0, 400, 450))
+        pygame.draw.rect(self.screen, WHITE, Rect(250, 0, 350, 450))
+        next_text = pygame.font.Font('Roboto-Bold.ttf', 18).render('NEXT', True, BLACK)
+        score_text = pygame.font.Font('Roboto-Bold.ttf', 18).render('SCORE', True, BLACK)
+        score_value = pygame.font.Font('Roboto-Bold.ttf', 16).render(str(self.score), True, BLACK)
+        level_text = pygame.font.Font('Roboto-Bold.ttf', 18).render('LEVEL', True, BLACK)
+        level_value = pygame.font.Font('Roboto-Bold.ttf', 16).render(str(self.level), True, BLACK)
+        goal_text = pygame.font.Font('Roboto-Bold.ttf', 18).render('GOAL', True, BLACK)
+        goal_value = pygame.font.Font('Roboto-Bold.ttf', 16).render(str(self.goal), True, BLACK)
+        self.screen.blit(next_text, (255, 20))
+        self.screen.blit(score_text, (255, 200))
+        self.screen.blit(score_value, (255,225))
+        self.screen.blit(level_text, (255, 275))
+        self.screen.blit(level_value, (255,300))
+        self.screen.blit(goal_text, (255, 350))
+        self.screen.blit(goal_value, (255,375))
 
     def pause(self):
         fontObj = pygame.font.Font('Roboto-Bold.ttf', 32)

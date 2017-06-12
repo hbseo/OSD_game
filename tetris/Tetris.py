@@ -19,7 +19,7 @@ class Tetris:
     DROP_EVENT = USEREVENT + 1
 
     def __init__(self):
-        self.screen = pygame.display.set_mode((400, 450))
+        self.screen = pygame.display.set_mode((350, 450))
         self.clock = pygame.time.Clock()
         self.board = Board(self.screen)
 
@@ -61,7 +61,7 @@ class Tetris:
             # self.screen.fill(BLACK)
             self.board.draw()
             pygame.display.update()
-            self.clock.tick(60)
+            self.clock.tick(30)
 
 if __name__ == "__main__":
     Tetris().run()
