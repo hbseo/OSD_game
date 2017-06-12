@@ -26,13 +26,13 @@ class Board:
         self.block_size = 25
         self.init_board()
         self.generate_piece()
-        self.skill = 0
 
     def init_board(self):
         self.board = []
         self.score = 0
         self.level = 1
         self.goal = 5
+        self.skill = 0
         for _ in range(self.height):
             self.board.append([0]*self.width)
 
