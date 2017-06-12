@@ -2,7 +2,7 @@
 
 ## tetris 폴더 다운 후 Tetris.py 파일 실행    
 
-![](https://github.com/alchon/OSD_game/blob/master/pictures/skel.PNG?raw=true)
+![](https://github.com/alchon/OSD_game/blob/master/pictures/tetris.gif?raw=true)
 
 ## 기능  
 - 배경 격자 무늬 추가  
