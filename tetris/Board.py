@@ -26,6 +26,7 @@ class Board:
         self.block_size = 25
         self.init_board()
         self.generate_piece()
+        self.skill = 0
 
     def init_board(self):
         self.board = []
@@ -46,6 +47,8 @@ class Board:
                     self.board[y+self.piece_y][x+self.piece_x] = block
         self.generate_piece()
         self.score += self.level
+        if self.skill < 100:
+            self.skill += 2
 
     def block_collide_with_board(self, x, y):
         if x < 0:
@@ -180,6 +183,8 @@ class Board:
         self.draw_blocks(self.board)
         pygame.draw.rect(self.screen, WHITE, Rect(250, 0, 350, 450))
         next_text = pygame.font.Font('Roboto-Bold.ttf', 18).render('NEXT', True, BLACK)
+        skill_text = pygame.font.Font('Roboto-Bold.ttf', 18).render('SKILL', True, BLACK)
+        skill_value = pygame.font.Font('Roboto-Bold.ttf', 16).render(str(self.skill)+'%', True, BLACK)
         score_text = pygame.font.Font('Roboto-Bold.ttf', 18).render('SCORE', True, BLACK)
         score_value = pygame.font.Font('Roboto-Bold.ttf', 16).render(str(self.score), True, BLACK)
         level_text = pygame.font.Font('Roboto-Bold.ttf', 18).render('LEVEL', True, BLACK)
@@ -187,6 +192,8 @@ class Board:
         goal_text = pygame.font.Font('Roboto-Bold.ttf', 18).render('GOAL', True, BLACK)
         goal_value = pygame.font.Font('Roboto-Bold.ttf', 16).render(str(self.goal), True, BLACK)
         self.screen.blit(next_text, (255, 20))
+        self.screen.blit(skill_text, (255, 120))
+        self.screen.blit(skill_value, (255, 145))
         self.screen.blit(score_text, (255, 200))
         self.screen.blit(score_value, (255,225))
         self.screen.blit(level_text, (255, 275))
@@ -235,6 +242,13 @@ class Board:
                     sys.exit()
                 elif event.type == KEYUP or event.type == KEYDOWN:
                     running = False
+
+    def ultimate(self):
+        if self.skill == 100:
+            self.board = []
+            self.skill = 0
+            for _ in range(self.height):
+                self.board.append([0]*self.width)
 
     def checkForKeyPress(self):
         for event in pygame.event.get([KEYDOWN, KEYUP]):

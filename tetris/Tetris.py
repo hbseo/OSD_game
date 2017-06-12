@@ -33,6 +33,8 @@ class Tetris:
             self.board.rotate_piece()
         elif event_key == K_SPACE:
             self.board.full_drop_piece()
+        elif event_key == K_q:
+            self.board.ultimate()
 
     def run(self):
         pygame.init()
