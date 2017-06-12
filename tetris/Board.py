@@ -38,14 +38,20 @@ class Board:
 
     def generate_piece(self):
         self.piece = Piece()
+        self.next_piece = Piece()
         self.piece_x, self.piece_y = 3,0
+
+    def nextpiece(self):
+        self.piece = self.next_piece
+        self.next_piece = Piece()
+        self.piece_x, self.piece_y = 3, 0
 
     def absorb_piece(self):
         for y, row in enumerate(self.piece):
             for x, block in enumerate(row):
                 if block:
                     self.board[y+self.piece_y][x+self.piece_x] = block
-        self.generate_piece()
+        self.nextpiece()
         self.score += self.level
         if self.skill < 100:
             self.skill += 2
@@ -125,6 +131,9 @@ class Board:
     def pos_to_pixel(self, x, y):
         return self.block_size*x, self.block_size*(y-2)
 
+    def pos_to_pixel_next(self, x, y):
+        return self.block_size*x*0.6, self.block_size*(y-2)*0.6
+
     def delete_line(self, y):
         for y in reversed(range(1, y+1)):
             self.board[y] = list(self.board[y-1])
@@ -170,6 +179,16 @@ class Board:
                         pygame.draw.rect(self.screen, BLACK,
                                         (x_pix, y_pix, self.block_size, self.block_size), 1)
 
+    def draw_next_piece(self, array2d, color=WHITE):
+        for y, row in enumerate(array2d):
+            for x, block in enumerate(row):
+                if block:
+                    x_pix, y_pix = self.pos_to_pixel_next(x,y)
+                    pygame.draw.rect(self.screen, self.piece.T_COLOR[block-1],
+                                    (x_pix+240, y_pix+65, self.block_size * 0.5, self.block_size * 0.5))
+                    pygame.draw.rect(self.screen, BLACK,
+                                    (x_pix+240, y_pix+65, self.block_size * 0.5, self.block_size * 0.5),1)
+
     def draw(self):
         now = datetime.datetime.now()
         nowTime = now.strftime('%H:%M:%S')
@@ -184,6 +203,7 @@ class Board:
         self.draw_blocks(self.piece, dx=self.piece_x, dy=self.piece_y)
         self.draw_blocks(self.board)
         pygame.draw.rect(self.screen, WHITE, Rect(250, 0, 350, 450))
+        self.draw_next_piece(self.next_piece)
         next_text = pygame.font.Font('Roboto-Bold.ttf', 18).render('NEXT', True, BLACK)
         skill_text = pygame.font.Font('Roboto-Bold.ttf', 18).render('SKILL', True, BLACK)
         skill_value = pygame.font.Font('Roboto-Bold.ttf', 16).render(str(self.skill)+'%', True, BLACK)
