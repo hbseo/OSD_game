@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame, sys, datetime
 from pygame.locals import *
 from Piece import *
 
@@ -171,6 +171,8 @@ class Board:
                                         (x_pix, y_pix, self.block_size, self.block_size), 1)
 
     def draw(self):
+        now = datetime.datetime.now()
+        nowTime = now.strftime('%H:%M:%S')
         self.screen.fill(BLACK)
         for x in range(self.width):
             for y in range(self.height):
@@ -191,6 +193,7 @@ class Board:
         level_value = pygame.font.Font('Roboto-Bold.ttf', 16).render(str(self.level), True, BLACK)
         goal_text = pygame.font.Font('Roboto-Bold.ttf', 18).render('GOAL', True, BLACK)
         goal_value = pygame.font.Font('Roboto-Bold.ttf', 16).render(str(self.goal), True, BLACK)
+        time_text = pygame.font.Font('Roboto-Bold.ttf', 14).render(str(nowTime), True, BLACK)
         self.screen.blit(next_text, (255, 20))
         self.screen.blit(skill_text, (255, 120))
         self.screen.blit(skill_value, (255, 145))
@@ -200,6 +203,7 @@ class Board:
         self.screen.blit(level_value, (255,300))
         self.screen.blit(goal_text, (255, 350))
         self.screen.blit(goal_value, (255,375))
+        self.screen.blit(time_text, (255, 430))
 
     def pause(self):
         fontObj = pygame.font.Font('Roboto-Bold.ttf', 32)
