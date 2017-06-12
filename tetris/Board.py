@@ -25,9 +25,13 @@ class Board:
         self.height = 20
         self.block_size = 25
         self.board = []
+        self.init_board()
+        self.generate_piece()
+
+    def init_board(self):
+        self.board = []
         for _ in range(self.height):
             self.board.append([0]*self.width)
-        self.generate_piece()
 
     def generate_piece(self):
         self.piece = Piece()
@@ -165,7 +169,6 @@ class Board:
         self.draw_blocks(self.board)
 
     def pause(self):
-        blink = False
         fontObj = pygame.font.Font('Roboto-Bold.ttf', 32)
         textSurfaceObj = fontObj.render('Paused', True, GREEN)
         textRectObj = textSurfaceObj.get_rect()
@@ -184,6 +187,27 @@ class Board:
                     pygame.quit()
                     sys.exit()
                 elif event.type == KEYUP and event.key == K_p:
+                    running = False
+
+    def GameOver(self, txt):
+        fontObj = pygame.font.Font('Roboto-Bold.ttf', 32)
+        textSurfaceObj = fontObj.render(txt, True, GREEN)
+        textRectObj = textSurfaceObj.get_rect()
+        textRectObj.center = (125, 185)
+        fontObj2 = pygame.font.Font('Roboto-Bold.ttf', 16)
+        textSurfaceObj2 = fontObj2.render('Press a key to continue', True, GREEN)
+        textRectObj2 = textSurfaceObj2.get_rect()
+        textRectObj2.center = (125, 235)
+        self.screen.blit(textSurfaceObj, textRectObj)
+        self.screen.blit(textSurfaceObj2, textRectObj2)
+        pygame.display.update()
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == KEYUP or event.type == KEYDOWN:
                     running = False
 
     def checkForKeyPress(self):

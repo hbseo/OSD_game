@@ -44,9 +44,12 @@ class Tetris:
 
         while True:
             if self.board.game_over():
-                print("Game over")
-                pygame.quit()
-                sys.exit()
+                self.screen.fill(BLACK)
+                self.board.GameOver('Game over')
+                self.board.init_board()
+                # print("Game over")
+                # pygame.quit()
+                # sys.exit()
             for event in pygame.event.get():
                 if event.type == QUIT:
                     pygame.quit()
