@@ -15,6 +15,7 @@ LIGHTBLUE   = ( 20,  20, 175)
 YELLOW      = (155, 155,   0)
 LIGHTYELLOW = (175, 175,  20)
 
+
 class Board:
     COLLIDE_ERROR = {'no_error' : 0, 'right_wall':1, 'left_wall':2,
                      'bottom':3, 'overlap':4}
@@ -141,6 +142,8 @@ class Board:
     def delete_lines(self):
         remove = [y for y, row in enumerate(self.board) if all(row)]
         for y in remove:
+            line_sound = pygame.mixer.Sound("sounds/Line_Clear.wav")
+            line_sound.play()
             self.delete_line(y)
             self.score += 10 * self.level
             self.goal -= 1

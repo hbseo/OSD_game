@@ -21,6 +21,7 @@ class Tetris:
         self.screen = pygame.display.set_mode((350, 450))
         self.clock = pygame.time.Clock()
         self.board = Board(self.screen)
+        self.music_on_off = True
 
     def handle_key(self, event_key):
         if event_key == K_DOWN or event_key == K_s:
@@ -35,6 +36,12 @@ class Tetris:
             self.board.full_drop_piece()
         elif event_key == K_q:
             self.board.ultimate()
+        elif event_key == K_m:
+            self.music_on_off = not self.music_on_off
+            if self.music_on_off:
+                pygame.mixer.music.play(-1, 0.0)
+            else:
+                pygame.mixer.music.stop()
 
     def run(self):
         pygame.init()
@@ -42,7 +49,10 @@ class Tetris:
         pygame.display.set_icon(icon)
         pygame.display.set_caption('Tetris')
         pygame.time.set_timer(pygame.USEREVENT, 500)
-
+        start_sound = pygame.mixer.Sound('sounds/Start.wav')
+        start_sound.play()
+        bgm = pygame.mixer.music.load('sounds/bgm.mp3')
+        pygame.mixer.music.play(-1, 0.0)
         while True:
             if self.board.game_over():
                 self.screen.fill(BLACK)
@@ -54,7 +64,9 @@ class Tetris:
                     sys.exit()
                 elif event.type == KEYUP and event.key == K_p:
                     self.screen.fill(BLACK)
+                    pygame.mixer.music.stop()
                     self.board.pause()
+                    pygame.mixer.music.play(-1, 0.0)
                 elif event.type == KEYDOWN:
                     self.handle_key(event.key)
                 elif event.type == pygame.USEREVENT:
