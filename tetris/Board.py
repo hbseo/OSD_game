@@ -56,7 +56,6 @@ class Board:
         return Board.COLLIDE_ERROR['no_error']
 
     def collide_with_board(self, dx, dy):
-        """piece가 보드에 충돌하는지 확인"""
         for y, row in enumerate(self.piece):
             for x, block in enumerate(row):
                 if block:
@@ -143,16 +142,12 @@ class Board:
                         # tx, ty = x, y
                         # while self.can_drop_piece():
                         #     ty += 1
-                        #
-                        # # shadow
                         # for i in range(4):
                         #     for j in range(5):
                         #         if
                         #
-                        # block
                         pygame.draw.rect(self.screen, self.piece.T_COLOR[block-1],
                                         (x_pix, y_pix, self.block_size, self.block_size))
-                        # block border
                         pygame.draw.rect(self.screen, BLACK,
                                         (x_pix, y_pix, self.block_size, self.block_size), 1)
 
@@ -167,16 +162,17 @@ class Board:
                  (x_pix, y_pix, self.block_size, self.block_size),1)
         self.draw_blocks(self.piece, dx=self.piece_x, dy=self.piece_y)
         self.draw_blocks(self.board)
+        pygame.draw.rect(self.screen, WHITE, Rect(250, 0, 400, 450))
 
     def pause(self):
         fontObj = pygame.font.Font('Roboto-Bold.ttf', 32)
         textSurfaceObj = fontObj.render('Paused', True, GREEN)
         textRectObj = textSurfaceObj.get_rect()
-        textRectObj.center = (125, 185)
+        textRectObj.center = (200, 185)
         fontObj2 = pygame.font.Font('Roboto-Bold.ttf', 16)
         textSurfaceObj2 = fontObj2.render('Press p to continue', True, GREEN)
         textRectObj2 = textSurfaceObj2.get_rect()
-        textRectObj2.center = (125, 235)
+        textRectObj2.center = (200, 235)
         self.screen.blit(textSurfaceObj, textRectObj)
         self.screen.blit(textSurfaceObj2, textRectObj2)
         pygame.display.update()
@@ -193,11 +189,11 @@ class Board:
         fontObj = pygame.font.Font('Roboto-Bold.ttf', 32)
         textSurfaceObj = fontObj.render(txt, True, GREEN)
         textRectObj = textSurfaceObj.get_rect()
-        textRectObj.center = (125, 185)
+        textRectObj.center = (200, 185)
         fontObj2 = pygame.font.Font('Roboto-Bold.ttf', 16)
         textSurfaceObj2 = fontObj2.render('Press a key to continue', True, GREEN)
         textRectObj2 = textSurfaceObj2.get_rect()
-        textRectObj2.center = (125, 235)
+        textRectObj2.center = (200, 235)
         self.screen.blit(textSurfaceObj, textRectObj)
         self.screen.blit(textSurfaceObj2, textRectObj2)
         pygame.display.update()

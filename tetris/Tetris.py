@@ -19,7 +19,7 @@ class Tetris:
     DROP_EVENT = USEREVENT + 1
 
     def __init__(self):
-        self.screen = pygame.display.set_mode((250, 450))
+        self.screen = pygame.display.set_mode((400, 450))
         self.clock = pygame.time.Clock()
         self.board = Board(self.screen)
 
@@ -47,9 +47,6 @@ class Tetris:
                 self.screen.fill(BLACK)
                 self.board.GameOver('Game over')
                 self.board.init_board()
-                # print("Game over")
-                # pygame.quit()
-                # sys.exit()
             for event in pygame.event.get():
                 if event.type == QUIT:
                     pygame.quit()
