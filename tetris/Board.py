@@ -1,4 +1,4 @@
-import pygame, sys, datetime
+import pygame, sys, datetime, time
 from pygame.locals import *
 from Piece import *
 
@@ -142,7 +142,7 @@ class Board:
     def delete_lines(self):
         remove = [y for y, row in enumerate(self.board) if all(row)]
         for y in remove:
-            line_sound = pygame.mixer.Sound("sounds/Line_Clear.wav")
+            line_sound = pygame.mixer.Sound("assets/sounds/Line_Clear.wav")
             line_sound.play()
             self.delete_line(y)
             self.score += 10 * self.level
@@ -207,16 +207,16 @@ class Board:
         self.draw_blocks(self.board)
         pygame.draw.rect(self.screen, WHITE, Rect(250, 0, 350, 450))
         self.draw_next_piece(self.next_piece)
-        next_text = pygame.font.Font('Roboto-Bold.ttf', 18).render('NEXT', True, BLACK)
-        skill_text = pygame.font.Font('Roboto-Bold.ttf', 18).render('SKILL', True, BLACK)
-        skill_value = pygame.font.Font('Roboto-Bold.ttf', 16).render(str(self.skill)+'%', True, BLACK)
-        score_text = pygame.font.Font('Roboto-Bold.ttf', 18).render('SCORE', True, BLACK)
-        score_value = pygame.font.Font('Roboto-Bold.ttf', 16).render(str(self.score), True, BLACK)
-        level_text = pygame.font.Font('Roboto-Bold.ttf', 18).render('LEVEL', True, BLACK)
-        level_value = pygame.font.Font('Roboto-Bold.ttf', 16).render(str(self.level), True, BLACK)
-        goal_text = pygame.font.Font('Roboto-Bold.ttf', 18).render('GOAL', True, BLACK)
-        goal_value = pygame.font.Font('Roboto-Bold.ttf', 16).render(str(self.goal), True, BLACK)
-        time_text = pygame.font.Font('Roboto-Bold.ttf', 14).render(str(nowTime), True, BLACK)
+        next_text = pygame.font.Font('assets/Roboto-Bold.ttf', 18).render('NEXT', True, BLACK)
+        skill_text = pygame.font.Font('assets/Roboto-Bold.ttf', 18).render('SKILL', True, BLACK)
+        skill_value = pygame.font.Font('assets/Roboto-Bold.ttf', 16).render(str(self.skill)+'%', True, BLACK)
+        score_text = pygame.font.Font('assets/Roboto-Bold.ttf', 18).render('SCORE', True, BLACK)
+        score_value = pygame.font.Font('assets/Roboto-Bold.ttf', 16).render(str(self.score), True, BLACK)
+        level_text = pygame.font.Font('assets/Roboto-Bold.ttf', 18).render('LEVEL', True, BLACK)
+        level_value = pygame.font.Font('assets/Roboto-Bold.ttf', 16).render(str(self.level), True, BLACK)
+        goal_text = pygame.font.Font('assets/Roboto-Bold.ttf', 18).render('GOAL', True, BLACK)
+        goal_value = pygame.font.Font('assets/Roboto-Bold.ttf', 16).render(str(self.goal), True, BLACK)
+        time_text = pygame.font.Font('assets/Roboto-Bold.ttf', 14).render(str(nowTime), True, BLACK)
         self.screen.blit(next_text, (255, 20))
         self.screen.blit(skill_text, (255, 120))
         self.screen.blit(skill_value, (255, 145))
@@ -229,11 +229,11 @@ class Board:
         self.screen.blit(time_text, (255, 430))
 
     def pause(self):
-        fontObj = pygame.font.Font('Roboto-Bold.ttf', 32)
+        fontObj = pygame.font.Font('assets/Roboto-Bold.ttf', 32)
         textSurfaceObj = fontObj.render('Paused', True, GREEN)
         textRectObj = textSurfaceObj.get_rect()
         textRectObj.center = (175, 185)
-        fontObj2 = pygame.font.Font('Roboto-Bold.ttf', 16)
+        fontObj2 = pygame.font.Font('assets/Roboto-Bold.ttf', 16)
         textSurfaceObj2 = fontObj2.render('Press p to continue', True, GREEN)
         textRectObj2 = textSurfaceObj2.get_rect()
         textRectObj2.center = (175, 235)
@@ -250,11 +250,11 @@ class Board:
                     running = False
 
     def GameOver(self, txt):
-        fontObj = pygame.font.Font('Roboto-Bold.ttf', 32)
+        fontObj = pygame.font.Font('assets/Roboto-Bold.ttf', 32)
         textSurfaceObj = fontObj.render(txt, True, GREEN)
         textRectObj = textSurfaceObj.get_rect()
         textRectObj.center = (175, 185)
-        fontObj2 = pygame.font.Font('Roboto-Bold.ttf', 16)
+        fontObj2 = pygame.font.Font('assets/Roboto-Bold.ttf', 16)
         textSurfaceObj2 = fontObj2.render('Press a key to continue', True, GREEN)
         textRectObj2 = textSurfaceObj2.get_rect()
         textRectObj2.center = (175, 235)
@@ -271,11 +271,11 @@ class Board:
                     running = False
 
     def newGame(self):
-        fontObj = pygame.font.Font('Roboto-Bold.ttf', 32)
+        fontObj = pygame.font.Font('assets/Roboto-Bold.ttf', 32)
         textSurfaceObj = fontObj.render('Tetris', True, GREEN)
         textRectObj = textSurfaceObj.get_rect()
         textRectObj.center = (175, 185)
-        fontObj2 = pygame.font.Font('Roboto-Bold.ttf', 16)
+        fontObj2 = pygame.font.Font('assets/Roboto-Bold.ttf', 16)
         textSurfaceObj2 = fontObj2.render('Press a key to continue', True, GREEN)
         textRectObj2 = textSurfaceObj2.get_rect()
         textRectObj2.center = (175, 235)
@@ -294,6 +294,13 @@ class Board:
 
     def ultimate(self):
         if self.skill == 100:
+            bomb = pygame.image.load("assets/images/bomb.jpg")
+            bomb = pygame.transform.scale(bomb, (350, 450))
+            bomb_sound = pygame.mixer.Sound('assets/sounds/bomb.wav')
+            self.screen.blit(bomb, (0, 0))
+            pygame.display.update()
+            bomb_sound.play()
+            time.sleep(1)
             self.board = []
             self.skill = 0
             for _ in range(self.height):
