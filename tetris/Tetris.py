@@ -16,7 +16,6 @@ YELLOW      = (155, 155,   0)
 LIGHTYELLOW = (175, 175,  20)
 
 class Tetris:
-    DROP_EVENT = USEREVENT + 1
 
     def __init__(self):
         self.screen = pygame.display.set_mode((350, 450))
@@ -40,7 +39,7 @@ class Tetris:
         icon = pygame.image.load('icon.png')
         pygame.display.set_icon(icon)
         pygame.display.set_caption('Tetris')
-        pygame.time.set_timer(Tetris.DROP_EVENT, 500)
+        pygame.time.set_timer(pygame.USEREVENT, 500)
 
         while True:
             if self.board.game_over():
@@ -56,7 +55,7 @@ class Tetris:
                     self.board.pause()
                 elif event.type == KEYDOWN:
                     self.handle_key(event.key)
-                elif event.type == Tetris.DROP_EVENT:
+                elif event.type == pygame.USEREVENT:
                     self.board.drop_piece()
             # self.screen.fill(BLACK)
             self.board.draw()

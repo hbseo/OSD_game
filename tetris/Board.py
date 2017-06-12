@@ -45,7 +45,7 @@ class Board:
                 if block:
                     self.board[y+self.piece_y][x+self.piece_x] = block
         self.generate_piece()
-        self.score += 10
+        self.score += self.level
 
     def block_collide_with_board(self, x, y):
         if x < 0:
@@ -130,11 +130,18 @@ class Board:
         remove = [y for y, row in enumerate(self.board) if all(row)]
         for y in remove:
             self.delete_line(y)
-            self.score += 50
+            self.score += 10 * self.level
             self.goal -= 1
             if self.goal == 0:
-                self.level += 1
-                self.goal = 5 * self.level
+                if self.level < 10:
+                    self.level += 1
+                    self.goal = 5 * self.level
+                else:
+                    self.goal = '-'
+            if self.level <= 9:
+                pygame.time.set_timer(pygame.USEREVENT, (500 - 50 * (self.level-1)))
+            else:
+                pygame.time.set_time(pygame.USEREVENT, 100)
 
     def game_over(self):
         return sum(self.board[0]) > 0 or sum(self.board[1]) > 0
@@ -190,11 +197,11 @@ class Board:
         fontObj = pygame.font.Font('Roboto-Bold.ttf', 32)
         textSurfaceObj = fontObj.render('Paused', True, GREEN)
         textRectObj = textSurfaceObj.get_rect()
-        textRectObj.center = (200, 185)
+        textRectObj.center = (175, 185)
         fontObj2 = pygame.font.Font('Roboto-Bold.ttf', 16)
         textSurfaceObj2 = fontObj2.render('Press p to continue', True, GREEN)
         textRectObj2 = textSurfaceObj2.get_rect()
-        textRectObj2.center = (200, 235)
+        textRectObj2.center = (175, 235)
         self.screen.blit(textSurfaceObj, textRectObj)
         self.screen.blit(textSurfaceObj2, textRectObj2)
         pygame.display.update()
@@ -211,11 +218,11 @@ class Board:
         fontObj = pygame.font.Font('Roboto-Bold.ttf', 32)
         textSurfaceObj = fontObj.render(txt, True, GREEN)
         textRectObj = textSurfaceObj.get_rect()
-        textRectObj.center = (200, 185)
+        textRectObj.center = (175, 185)
         fontObj2 = pygame.font.Font('Roboto-Bold.ttf', 16)
         textSurfaceObj2 = fontObj2.render('Press a key to continue', True, GREEN)
         textRectObj2 = textSurfaceObj2.get_rect()
-        textRectObj2.center = (200, 235)
+        textRectObj2.center = (175, 235)
         self.screen.blit(textSurfaceObj, textRectObj)
         self.screen.blit(textSurfaceObj2, textRectObj2)
         pygame.display.update()
