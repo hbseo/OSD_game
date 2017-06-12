@@ -154,13 +154,14 @@ class Board:
                     if block:
                         x += dx
                         x_pix, y_pix = self.pos_to_pixel(x, y)
-                        # tx, ty = x, y
-                        # while self.can_drop_piece():
-                        #     ty += 1
-                        # for i in range(4):
-                        #     for j in range(5):
-                        #         if
-                        #
+                        tmp = 1
+                        while self.can_move_piece(0, tmp):
+                            tmp += 1
+                        x_s, y_s = self.pos_to_pixel(x, y+tmp-1)
+                        pygame.draw.rect(self.screen, self.piece.T_COLOR[7],
+                                        (x_pix, y_s, self.block_size, self.block_size))
+                        pygame.draw.rect(self.screen, BLACK,
+                                        (x_pix, y_s, self.block_size, self.block_size),1)
                         pygame.draw.rect(self.screen, self.piece.T_COLOR[block-1],
                                         (x_pix, y_pix, self.block_size, self.block_size))
                         pygame.draw.rect(self.screen, BLACK,
