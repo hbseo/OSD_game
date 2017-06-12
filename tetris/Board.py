@@ -267,7 +267,29 @@ class Board:
                 if event.type == QUIT:
                     pygame.quit()
                     sys.exit()
-                elif event.type == KEYUP or event.type == KEYDOWN:
+                elif event.type == KEYDOWN:
+                    running = False
+
+    def newGame(self):
+        fontObj = pygame.font.Font('Roboto-Bold.ttf', 32)
+        textSurfaceObj = fontObj.render('Tetris', True, GREEN)
+        textRectObj = textSurfaceObj.get_rect()
+        textRectObj.center = (175, 185)
+        fontObj2 = pygame.font.Font('Roboto-Bold.ttf', 16)
+        textSurfaceObj2 = fontObj2.render('Press a key to continue', True, GREEN)
+        textRectObj2 = textSurfaceObj2.get_rect()
+        textRectObj2.center = (175, 235)
+        self.screen.fill(BLACK)
+        self.screen.blit(textSurfaceObj, textRectObj)
+        self.screen.blit(textSurfaceObj2, textRectObj2)
+        pygame.display.update()
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == KEYDOWN:
                     running = False
 
     def ultimate(self):

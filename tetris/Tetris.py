@@ -22,6 +22,7 @@ class Tetris:
         self.clock = pygame.time.Clock()
         self.board = Board(self.screen)
         self.music_on_off = True
+        self.check_reset = True
 
     def handle_key(self, event_key):
         if event_key == K_DOWN or event_key == K_s:
@@ -52,11 +53,16 @@ class Tetris:
         start_sound = pygame.mixer.Sound('sounds/Start.wav')
         start_sound.play()
         bgm = pygame.mixer.music.load('sounds/bgm.mp3')
-        pygame.mixer.music.play(-1, 0.0)
         while True:
+            if self.check_reset:
+                self.board.newGame()
+                self.check_reset = False
+                pygame.mixer.music.play(-1, 0.0)
             if self.board.game_over():
                 self.screen.fill(BLACK)
+                pygame.mixer.music.stop()
                 self.board.GameOver('Game over')
+                self.check_reset = True
                 self.board.init_board()
             for event in pygame.event.get():
                 if event.type == QUIT:
