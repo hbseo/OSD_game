@@ -6,7 +6,8 @@
 
 ## tetris 폴더 다운 후 Tetris.py 파일 실행    
 
-![](https://github.com/alchon/OSD_game/blob/master/pictures/tetris.gif?raw=true)
+### [ScreenShots](https://github.com/alchon/OSD_game/tree/master/pictures)        
+![Gaming](https://github.com/alchon/OSD_game/blob/master/pictures/tetris.gif?raw=true)  
 
 ## 조작 키  
 - a, 방향키 왼쪽 : 블록을 왼쪽으로 한칸 이동시킨다  
