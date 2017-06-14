@@ -81,7 +81,7 @@ class Tetris:
             if self.board.game_over():
                 self.screen.fill(BLACK)
                 pygame.mixer.music.stop()
-                self.board.GameOver('Game over')
+                self.board.GameOver()
                 self.HighScore()
                 self.check_reset = True
                 self.board.init_board()
