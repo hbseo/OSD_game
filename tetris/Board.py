@@ -249,9 +249,9 @@ class Board:
                 elif event.type == KEYUP and event.key == K_p:
                     running = False
 
-    def GameOver(self, txt):
+    def GameOver(self):
         fontObj = pygame.font.Font('assets/Roboto-Bold.ttf', 32)
-        textSurfaceObj = fontObj.render(txt, True, GREEN)
+        textSurfaceObj = fontObj.render('Game over', True, GREEN)
         textRectObj = textSurfaceObj.get_rect()
         textRectObj.center = (175, 185)
         fontObj2 = pygame.font.Font('assets/Roboto-Bold.ttf', 16)
