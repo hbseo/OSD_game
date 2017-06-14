@@ -328,10 +328,3 @@ class Board:
             self.skill = 0
             for _ in range(self.height):
                 self.board.append([0]*self.width)
-
-    def checkForKeyPress(self):
-        for event in pygame.event.get([KEYDOWN, KEYUP]):
-            if event.type == KEYDOWN:
-                continue
-            return event.key
-        return None
